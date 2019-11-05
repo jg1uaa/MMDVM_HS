@@ -324,10 +324,6 @@ void CIO::Init()
   for(delay = 0;delay<512;delay++);
 #endif
 
-  GPIO_InitStruct.GPIO_Pin   = GPIO_Pin_11 | GPIO_Pin_12;
-  GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_IN_FLOATING;
-  GPIO_Init(GPIOA, &GPIO_InitStruct);
-
   RCC_USBCLKConfig(RCC_USBCLKSource_PLLCLK_1Div5);
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_USB, ENABLE);
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
