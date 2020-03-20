@@ -119,19 +119,22 @@ This utility includes firmwares binaries and USB drivers for Windows 7/8/10. If 
 
 Download the script (*.sh) that matches with your ZUMspot/MMDVM_HS board:
 
+- install_fw_librekit.sh: only for ZUMspot Libre Kit board (KI6ZUM & VE2GZI) or generic MMDVM_HS board with USB interface
 - install_fw_rpi.sh: only for ZUMspot RPi board (KI6ZUM & VE2GZI)
+- install_fw_usb.sh: only for ZUMspot USB dongle (KI6ZUM)
+- install_fw_duplex.sh: only for ZUMspot Duplex for RPi (KI6ZUM)
+- install_fw_dualband.sh: only for ZUMspot Dualband for RPi (KI6ZUM)
 - install_fw_hshat.sh: only for MMDVM_HS_Hat board (DB9MAT & DF2ET)
 - install_fw_hshat-12mhz.sh: only for MMDVM_HS_Hat board with 12.288 MHz TCXO (DB9MAT & DF2ET)
+- install_fw_hsdualhat.sh: only for MMDVM_HS_Dual_Hat board (DB9MAT & DF2ET & DO7EN)
+- install_fw_hsdualhat-12mhz.sh: only for MMDVM_HS_Dual_Hat board with 12.288 MHz TCXO (DB9MAT & DF2ET & DO7EN)
 - install_fw_nanohs.sh: only for Nano hotSPOT board (BI7JTA)
 - install_fw_nanodv_npi.sh: only for NanoDV NPi board 1.0 (BG4TGO & BG5HHP)
 - install_fw_nanodv_usb.sh: only for NanoDV USB board 1.0 (BG4TGO & BG5HHP)
 - install_fw_d2rg_mmdvmhs.sh: only for D2RG MMDVM_HS board (BG3MDO, VE2GZI, CA6JAU)
-- install_fw_hsdualhat.sh: only for MMDVM_HS_Dual_Hat board (DB9MAT & DF2ET & DO7EN)
-- install_fw_librekit.sh: only for ZUMspot Libre Kit board (KI6ZUM & VE2GZI) or generic MMDVM_HS board with USB interface
-- install_fw_usb.sh: only for ZUMspot USB dongle (KI6ZUM & VE2GZI)
-- install_fw_duplex.sh: only for MMDVM_HS with dual ADF7021 (EA7GIB) or generic dual ADF7021 board with USB interface
 - install_fw_gen_gpio.sh: only for generic MMDVM_HS board (EA7GIB) with GPIO serial interface
 - install_fw_duplex_gpio.sh: only for MMDVM_HS with dual ADF7021 (EA7GIB) or generic dual ADF7021 board with GPIO serial interface
+- install_fw_duplex_usb.sh: only for MMDVM_HS with dual ADF7021 (EA7GIB) or generic dual ADF7021 board with USB interface
 
 For example, download the ZUMspot RPi upgrade script:
 
@@ -147,6 +150,10 @@ stop your MMDVMHost process and run (you will need the root password):
     ./install_fw_rpi.sh
 
 and wait to complete the upgrading process.
+
+You could optionally install a beta firmware for testing:
+
+    ./install_fw_rpi.sh beta
 
 ## Build from the sources
 
@@ -312,3 +319,41 @@ Upload the firmware to ZUMspot RPi board:
 
     sudo make zumspot-pi
 
+### MMDVM_HS_Dual_Hat\MMDVM_HS_Hat gpio firmware update on OrangePI PC/PC2/PC Plus
+
+Install the necessary software tools:
+
+    sudo apt-get update
+    sudo apt-get install gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib libnewlib-arm-none-eabi
+
+Download the sources:
+
+    cd ~
+    git clone https://github.com/juribeparada/MMDVM_HS
+    cd MMDVM_HS/
+    git submodule init
+    git submodule update
+
+Install the tools for building firmware
+
+    cd MMDVM_HS/scripts
+    ./install_buildtools.sh
+    
+Copy MMDVM_HS/configs/MMDVM_HS_Dual_Hat.h or MMDVM_HS/configs/MMDVM_HS_Hat.h (MMDVM_HS_Hat-12mhz.h) to MMDVM_HS/Config.h and build the firmware:
+
+    make
+
+Stop the MMDVMHost services:
+
+    sudo systemctl stop mmdvmhost.timer
+    sudo systemctl stop mmdvmhost.service
+
+Upload the firmware to mmdvm_hs_dual_hat (mmdvm_hs_hat) on OrangePi PC\PC2\PC Plus:
+
+    sudo make mmdvm_hs_dual_hat_opi (sudo make mmdvm_hs_hat_opi)
+
+or
+
+    sudo /usr/local/bin/stm32flash -v -w bin/mmdvm_f1.bin -g 0x0 -R -i 198,-199,199:-198,199 /dev/ttyS3
+    
+    

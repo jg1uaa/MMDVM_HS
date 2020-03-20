@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#   Copyright (C) 2017,2018 by Andy Uribe CA6JAU
+#   Copyright (C) 2017,2018,2019 by Andy Uribe CA6JAU
 
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ MAC_DEV_USB_SER="/dev/cu.usbmodem14401"
 FW_VERSION_BETA="v1.5.1b"
 
 # Firmware filename
-FW_FILENAME="nanodv_usb_fw.bin"
+FW_FILENAME="generic_duplex_usb_fw.bin"
 	
 # Download latest firmware
 if [ $1 = "beta" ]; then
@@ -91,5 +91,5 @@ eval sudo $DFU_RST $DEV_USB_SER 750
 eval sudo $DFU_UTIL -D $FW_FILENAME -d 1eaf:0003 -a 2 -R -R
 
 echo
-echo "Please RESET your Nano DV !"
+echo "Please RESET your MMDVM_HS board !"
 echo

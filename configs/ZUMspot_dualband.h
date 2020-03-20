@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2018,2019 by Andy Uribe CA6JAU
+ *   Copyright (C) 2017,2018,2019 by Andy Uribe CA6JAU
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 
 // Select one board (STM32F103 based boards)
 // 1) ZUMspot RPi or ZUMspot USB:
-// #define ZUMSPOT_ADF7021
+#define ZUMSPOT_ADF7021
 // 2) Libre Kit board or any homebrew hotspot with modified RF7021SE and Blue Pill STM32F103:
 // #define LIBRE_KIT_ADF7021
 // 3) MMDVM_HS_Hat revisions 1.1, 1.2 and 1.4 (DB9MAT & DF2ET)
@@ -29,11 +29,9 @@
 // 4) MMDVM_HS_Dual_Hat revisions 1.0 (DB9MAT & DF2ET & DO7EN)
 // #define MMDVM_HS_DUAL_HAT_REV10
 // 5) Nano hotSPOT (BI7JTA)
-#define NANO_HOTSPOT
+// #define NANO_HOTSPOT
 // 6) NanoDV NPi or USB revisions 1.0 (BG4TGO & BG5HHP)
 // #define NANO_DV_REV10
-// 7) D2RG MMDVM_HS RPi (BG3MDO, VE2GZI, CA6JAU)
-// #define D2RG_MMDVM_HS
 
 // Enable ADF7021 support:
 #define ENABLE_ADF7021
@@ -52,7 +50,7 @@
 #define AD7021_GAIN_AUTO
 // AGC automatic with high LNA linearity:
 // #define AD7021_GAIN_AUTO_LIN
-// AGC OFF, lowest gain: 
+// AGC OFF, lowest gain:
 // #define AD7021_GAIN_LOW
 // AGC OFF, highest gain:
 // #define AD7021_GAIN_HIGH
@@ -84,7 +82,7 @@
 // Disable mode LEDs blink during scan mode:
 // #define QUIET_MODE_LEDS
 
-// Engage a constant or descreet Service LED mode once repeater is running 
+// Engage a constant or descreet Service LED mode once repeater is running
 // #define CONSTANT_SRV_LED
 // #define CONSTANT_SRV_LED_INVERTED
 // #define DISCREET_SRV_LED
